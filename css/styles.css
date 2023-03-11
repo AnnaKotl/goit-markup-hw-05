@@ -14,6 +14,8 @@
   /* Navi blue */
   --hero-background-color: #2e2f42;
   --white-color: #ffffff;
+  /* DAIRY */
+  --modal-bgc: #fcfcfc;
   /* Fonts */
   --primari-font: 'Roboto', sans-serif;
   --secondari-font: 'Raleway', sans-serif;
@@ -60,7 +62,10 @@ body {
 }
 .link {
   text-decoration: none;
-  padding: 24px 0;
+  transition: color 250ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+.focus-function {
+  transition: bacground-color 250ms cubic-bezier(0.4, 0, 0.2, 1), color 250ms cubic-bezier(0.4, 0, 0.2, 1), box-shadov 250ms cubic-bezier(0.4, 0, 0.2, 1), border-color 250ms cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 /* Menu Nav */
@@ -85,6 +90,7 @@ body {
   line-height: 1.33;
   letter-spacing: 0.03em;
   margin-right: auto;
+  padding: 24px 0;
 }
 .logo-nav {
   color: var(--primary-brand-color);
@@ -95,15 +101,26 @@ body {
   margin-left: 76px;
 }
 .nav-link {
+  position: relative;
   color: var(--hero-background-color);
   font-weight: 500;
   font-size: 16px;
+  padding: 21px 0 27px 0;
 }
 .nav-link:hover,
 .nav-link:focus {
   color: var(--primary-brand-color);
 }
-
+.nav-link.active::after {
+  content: "";
+  position: absolute;
+  bottom: -1px;
+  left: 0;
+  width: 100%;
+  height: 4px;
+  background: var(--pressed-state-color);
+  border-radius: 2px;
+}
 /* Contacts */
 
 .contacts {
@@ -118,6 +135,7 @@ body {
   font-weight: 400;
   font-size: 16px;
   color: var(--text-color);
+  padding: 24px 0;
 }
 .contacts-item:hover,
 .contacts-item:focus {
@@ -160,8 +178,8 @@ body {
   letter-spacing: 0.04em;
   color: var(--white-color);
   background-color: var(--primary-brand-color);
-  cursor: pointer;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.15);
+  cursor: pointer;
   border-radius: 4px;
   min-width: 169px;
   padding: 16px 32px;
@@ -279,6 +297,7 @@ body {
   border-radius: 50%;
   background-color: var(--primary-brand-color);
   text-decoration: none;
+  transition: background-color 250ms cubic-bezier(0.4, 0, 0.2, 1);
 }
 .team-icon-link:is(:hover, :focus) {
   background-color: var(--pressed-state-color);
@@ -350,6 +369,7 @@ body {
   font-size: 18px;
   line-height: 1.33;
   letter-spacing: 0.03em;
+  padding: 24px 0;
   color: var(--light-color);
 }
 .logo-footer {
@@ -394,7 +414,59 @@ body {
   background-color: var(--succes-color);
 }
 
-/* PORTFOLIO.HTML */
+/* --------------------------------modal----------------------------------- */
+.backdrop{
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(46, 47, 66, 0.4);
+  transition: opacity 250ms cubic-bezier(0.4, 0, 0.2, 1), visibility 250ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+.modal {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 408px;
+  min-height: 576px;
+  background-color: var(--modal-bgc);
+  box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.14), 0px 1px 3px rgba(0, 0, 0, 0.12), 0px 2px 1px rgba(0, 0, 0, 0.2);
+  border-radius: 4px;
+  transform: translate(-50%, -50%) scale(1);
+  transition: transform 250ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+.is-hidden {
+  opacity: 0;
+  visibility: none;
+  pointer-events: none;
+}
+.backdrop.is-hidden .modal {
+  transform: translate(-50%, -50%) scale(0);
+}
+.modal-close {
+  display: block;
+  margin-left: auto;
+  margin-top: 24px;
+  margin-right: 24px;
+  width: 24px;
+  height: 24px;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-radius: 50%;
+  background-color: var(--accent-color);
+  color: var(--hero-background-color);
+  cursor: pointer;
+}
+.modal-close:is(:hover, :focus) {
+  background-color: var(--pressed-state-color);
+  color: var(--white-color);
+}
+.close-icon {
+  fill: currentColor;
+}
+
+/* ------------------------------PORTFOLIO.HTML------------- */
+
 /* Button filter */
 .finger {
   padding-top: 96px;
@@ -426,7 +498,6 @@ body {
   color: var(--white-color);
   background-color: var(--pressed-state-color);
   box-shadow: 0px 3px 1px rgba(0, 0, 0, 0.1), 0px 2px 1px rgba(0, 0, 0, 0.08), 0px 2px 2px rgba(0, 0, 0, 0.12);
-  border-radius: 4px;
   border-color: var(--pressed-state-color);
 }
 
@@ -451,6 +522,27 @@ body {
 }
 .catalog-link:is(:hover, :focus) {
   box-shadow: 0px 1px 6px rgba(46, 47, 66, 0.08), 0px 1px 1px rgba(46, 47, 66, 0.16), 0px 2px 1px rgba(46, 47, 66, 0.08);
+}
+.catalog-overlay {
+  position: relative;
+  overflow: hidden;
+}
+.light-text {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  transform: translateY(100%);
+  transition: 250ms cubic-bezier(0.4, 0, 0.2, 1);
+  overflow: auto;
+  padding: 40px 32px 0 40px;
+  font-size: 16px;
+  color: var(--accent-color);
+  background-color: var(--primary-brand-color);
+}
+.catalog-link:is(:hover, :focus) .light-text {
+  transform: translateY(0%);
 }
 .catalog-group {
   padding: 32px 0 32px 16px;
